@@ -2,8 +2,9 @@
 
 public class PlayerController : MonoBehaviour {
 
-    public float speed = 50f;
+    public float speed = 2f;
     public float fireDelta = 0.25F;
+    public float tilt = 5f;
 
     public Vector2 minMaxValue;
     public GameObject projectile;
@@ -37,17 +38,14 @@ public class PlayerController : MonoBehaviour {
     private void FixedUpdate()
     {
         moveHorizontal = Input.GetAxis("Horizontal") * speed;
-        moveHorizontal *= Time.deltaTime;
 
-        if(transform.position.x <= minMaxValue.x)
-        {
-            transform.position = new Vector3(minMaxValue.x, 0, 0);
-        }
-        if (transform.position.x >= minMaxValue.y)
-        {
-            transform.position = new Vector3(minMaxValue.y, 0, 0);
-        }
-        transform.Translate(moveHorizontal, 0, 0);
+        Vector3 movement = new Vector3(moveHorizontal, 0, 0);
+        rb.velocity = movement * speed;
+        rb.position = new Vector3(
+            Mathf.Clamp(rb.position.x, minMaxValue.x, minMaxValue.y),
+            0.0f,
+            0.0f
+        );
     }
 
     private void OnCollisionEnter(Collision collision)
