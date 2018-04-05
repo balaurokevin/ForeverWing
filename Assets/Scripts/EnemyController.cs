@@ -6,6 +6,8 @@ public class EnemyController : MonoBehaviour {
 
     public float enemySpeed = 5f;
 
+    public GameObject explosionParticle;
+
     private float enemyHealth;
     private int enemyValue = 2;
 
@@ -13,11 +15,13 @@ public class EnemyController : MonoBehaviour {
     private BulletController bulletController = new BulletController();
     private GameController gameController;
     private Renderer render;
+    private AudioSource audio;
 
     private void Awake()
     {
         rb = GetComponentInChildren<Rigidbody>();
         render = GetComponent<Renderer>();
+        audio = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -32,12 +36,12 @@ public class EnemyController : MonoBehaviour {
         {
             Debug.Log("Cannot find 'GameController' script");
         }
-        enemyHealth = Random.Range(5, 20);
-        if(enemyHealth <= 10)
+        enemyHealth = Random.Range(1, 15);
+        if(enemyHealth <= 5)
         {
             render.material.color = Color.red;
         }
-        else if (enemyHealth <= 15)
+        else if (enemyHealth <= 10)
         {
             render.material.color = Color.blue;
         }
@@ -67,7 +71,9 @@ public class EnemyController : MonoBehaviour {
         if (enemyHealth <= 0)
         {
             gameController.AddScore(enemyValue);
-            Destroy(this.gameObject);
+            GameObject p = Instantiate(explosionParticle, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+            Destroy(gameObject);
+            Destroy(p, 2f);
         }
     }
 }

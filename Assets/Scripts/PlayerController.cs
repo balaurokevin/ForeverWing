@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 
     public Vector2 minMaxValue;
     public GameObject projectile;
+    public GameObject explosionParticle;
     public Transform spawnBullet;
 
     private float moveHorizontal;
@@ -14,21 +15,30 @@ public class PlayerController : MonoBehaviour {
     private float myTime = 0.0F;
 
     private bool isDead;
+    private bool hasExploded = false;
+
+    public AudioSource[] audio;
 
     private GameObject newProjectile;
     private Rigidbody rb;
     private GameController gameController;
-    private AudioSource audio;
+
+    private AudioSource bulletAudio;
+    private AudioSource explosionAudio;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();    
+        rb = GetComponent<Rigidbody>();
+        audio = GetComponents<AudioSource>();
     }
 
     private void Start()
     {
         GameObject gameControllerObject = GameObject.FindWithTag("GameController");
-        audio = GetComponent<AudioSource>();
+        
+        bulletAudio = audio[0];
+        explosionAudio = audio[1];
+        
         if (gameControllerObject != null)
         {
             gameController = gameControllerObject.GetComponent<GameController>();
@@ -38,6 +48,7 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("Cannot find 'GameController' script");
         }
         isDead = false;
+       
         transform.rotation = Quaternion.Euler(Vector3.right * -90f);
     }
 
@@ -47,11 +58,16 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButton("Jump") && myTime > nextFire)
         {      
             nextFire = myTime + fireDelta;
-            audio.Play();
+            
+            bulletAudio.Play();
             newProjectile = Instantiate(projectile, spawnBullet.position, spawnBullet.rotation) as GameObject;
-        
+            
             nextFire = nextFire - myTime;
             myTime = 0.0F;
+        }
+        if (isDead)
+        {
+            
         }
     }
 
@@ -68,9 +84,18 @@ public class PlayerController : MonoBehaviour {
     {
         if(collision.collider.tag == "Enemy")
         {
-            Destroy(this.gameObject);
-            isDead = true;
+            explosionAudio.Play();
+            
+            Destroy(gameObject,1.2f);
+
             gameController.GameOver();
+            Invoke("Explode", 0f);
+            isDead = true;
         }
+    }
+    private void Explode()
+    {
+        GameObject p = Instantiate(explosionParticle, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
+        Destroy(p, 2f);
     }
 }

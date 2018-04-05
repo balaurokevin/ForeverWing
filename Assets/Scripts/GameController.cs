@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour {
     public void GameOver()
     {
         gameOverText.enabled = true;
-        continueText.enabled = false;
+        continueText.enabled = true;
         gameOverText.text = "Game Over!";
         continueText.text = "Press R to Continue!";
         if (Input.GetKeyDown(KeyCode.R))
