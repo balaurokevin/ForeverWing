@@ -45,6 +45,6 @@ Material:
     - _ReflectionStrength: 1.8955224
     m_Colors:
     - _Color: {r: 0.588, g: 0.588, b: 0.588, a: 1}
-    - _Colour: {r: 0.738806, g: 0.738806, b: 0.738806, a: 1}
+    - _Colour: {r: 0.41911763, g: 0.5588235, b: 0.5588235, a: 1}
     - _FresnelTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SpecColour: {r: 0.5895523, g: 0.5895523, b: 0.5895523, a: 1}
