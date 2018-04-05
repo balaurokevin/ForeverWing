@@ -13,7 +13,7 @@ public class PropellerController : MonoBehaviour {
         audio = GetComponent<AudioSource>();
         audio.Play();
     }
-    // Update is called once per frame
+
     void Update () {  
         transform.Rotate(Vector3.down * propellerSpeed );
     }

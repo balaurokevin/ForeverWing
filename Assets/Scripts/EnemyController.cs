@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour {
     private int enemyValue = 2;
 
     private Rigidbody rb;
-    private BulletController bulletController;
+    private BulletController bulletController = new BulletController();
     private GameController gameController;
     private Renderer render;
 
@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour {
 
     private void Start()
     {
-        bulletController = new BulletController();
+        transform.rotation = Quaternion.Euler(new Vector3(270, 0, 180));
         GameObject gameControllerObject = GameObject.FindWithTag("GameController");
         if (gameControllerObject != null)
         {
@@ -51,6 +51,7 @@ public class EnemyController : MonoBehaviour {
     {
         Death();
         rb.velocity = Vector3.back * enemySpeed;
+        rb.rotation = Quaternion.Euler(new Vector3(270, 0, 180));
     }
 
     private void OnCollisionEnter(Collision collision)

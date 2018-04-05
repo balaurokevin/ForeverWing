@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("Cannot find 'GameController' script");
         }
         isDead = false;
+        transform.rotation = Quaternion.Euler(Vector3.right * -90f);
     }
 
     void Update()
