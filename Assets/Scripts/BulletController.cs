@@ -3,7 +3,7 @@
 public class BulletController : MonoBehaviour {
 
     public float bulletSpeed;
-    public float bulletDamage = 3f;
+    public float bulletDamage = 2.5f;
 
     private Rigidbody rb;
 

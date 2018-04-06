@@ -29,8 +29,7 @@ public class GameController : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.R) && gameOver)
         {
-            SceneManager.LoadScene(0);
-            Debug.Log("R is press");
+            SceneManager.LoadScene(1);
         }
     }
 

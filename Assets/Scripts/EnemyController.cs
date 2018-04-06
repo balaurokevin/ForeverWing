@@ -36,12 +36,12 @@ public class EnemyController : MonoBehaviour {
         {
             Debug.Log("Cannot find 'GameController' script");
         }
-        enemyHealth = Random.Range(5, 21);
-        if(enemyHealth <= 8)
+        enemyHealth = Random.Range(5, 30);
+        if(enemyHealth <= 7)
         {
             render.material.color = Color.red;
         }
-        else if (enemyHealth <= 16)
+        else if (enemyHealth <= 19)
         {
             render.material.color = Color.blue;
         }
